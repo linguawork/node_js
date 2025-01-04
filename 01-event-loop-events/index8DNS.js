@@ -2,7 +2,9 @@
 (Практика - Событие DNS и отложенный nextTick)
     https://www.youtube.com/watch?v=egoMqpY2myQ 
 
-    nextTick помещаем во второй setTimeout
+    nextTick помещаем во второй setTimeout:
+    the delayed nextTick
+
 
 */
 
