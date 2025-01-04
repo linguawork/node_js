@@ -40,35 +40,20 @@ setImmediate(
 console.log('Program end', timestamp())
 
 
-/*
-    Program start
-    Program end
-    Next tick 1 (look at the diagram) - 1: The highest priority
-    Promise fulfilled - 2: The second priority
-    Timeout 1 - 3
-    Immediate 1 -4
-
-    //Второй цикл (определил по Timeout)
-    File written -1
-    Timeout 2 - 2 with delay
-*/
-
-
-//stopped at 3:07:12
-//https://www.youtube.com/watch?v=egoMqpY2myQ 
-
-
-
-
 /* 
-    with function timestamp: performance.now().toFixed(2)
+    With function timestamp: performance.now().toFixed(2)
+    
     Program start 118.46
     Program end 123.28
-    Next tick 1 123.83
-    Promise fulfilled 123.97
-    Timeout 1 124.46
-    Immediate 1 125.16
-    File written 125.44115800410509
-    Timeout 2 132.24
-*/
+    Next tick 1 123.83 - (look at the diagram) - 1: The highest priority
+    Promise fulfilled 123.97 - 2: The second priority
+    Timeout 1 124.46 - 3
+    Immediate 1 125.16 - 4
 
+    //Второй цикл (определил по Timeout)
+    File written 125.44115800410509 -1
+    Timeout 2 132.24 - 2 with delay
+*/
+   
+//stopped at 3:07:12 (До практики - Событие DNS и отложенный nextTick)
+//https://www.youtube.com/watch?v=egoMqpY2myQ 
