@@ -27,13 +27,13 @@ process.nextTick(
 function setImmediatePromise(){
    return new Promise(
       (resolve, reject) =>{
-         // выполняется хотя бы один раз в итерации
-         // поэтому она прерывает постоянный цикл
+         //выполняется хотя бы один раз в итерации
+         //поэтому она прерывает постоянный цикл
          setImmediate( 
-            // if we comment setImmediate, то resolve уйдет в вечный цикл
+            //if we comment setImmediate, то resolve уйдет в вечный цикл
             ()=>resolve()
          )
-         // resolve()
+         //resolve()
       }
    )
 }
