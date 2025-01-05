@@ -9,13 +9,13 @@ console.log(exports)
 
 /*
 
-absolute path to a module:
-/home/areggie/Desktop/node_js/03-commonjs-modules/other-module3.js
+    absolute path to a module:
+    /home/areggie/Desktop/node_js/03-commonjs-modules/other-module3.js
 
-path to directory:
-/home/areggie/Desktop/node_js/03-commonjs-modules
+    path to directory:
+    /home/areggie/Desktop/node_js/03-commonjs-modules
 
-{}
+    {}
 
 */
 
