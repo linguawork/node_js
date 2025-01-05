@@ -2,26 +2,19 @@
  Blocking events
  */
 
- /*
+/*
  Практика цикла while c блокированием потока
  3:34:26
  
  */
 
- const isRunning = true
+const isRunning = true;
 
+setTimeout(() => (isRunning = false), 0);
 
+process.nextTick(() => console.log("Next tick"));
 
- setTimeout(
-    ()=> isRunning = false, 0
- )
-
-process.nextTick(
-    ()=>console.log('Next tick')
-)
-
-
- /* цикл выполняется в главном потоке. 
+/* цикл выполняется в главном потоке. 
  Пока он работает, setTimeout
   не работает.
 
@@ -37,6 +30,6 @@ process.nextTick(
   */
 
 //единственный поток занят в этом цикле
- while(isRunning){
-    console.log('While is running...')
- }
+while (isRunning) {
+  console.log("While is running...");
+}
