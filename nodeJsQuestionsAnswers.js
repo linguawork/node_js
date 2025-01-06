@@ -134,3 +134,5 @@ No matter which path you choose, having a solid foundation in JavaScript is cruc
 
 
 */
+
+//5:22:42 Import of functions (Практика, модули CommonJS)
