@@ -1,4 +1,4 @@
-/**
+/*
  * The order of learning after JS, HTML, CSS
  * 
  * browser part: 
@@ -17,7 +17,6 @@
  * MongoDB
  * 
  * NextJS
- * 
  */
 
 
@@ -25,11 +24,11 @@
  * https://blog.webdevsimplified.com/
  * 
  * https://www.youtube.com/watch?v=4r6WdaY3SOA
- * How The Backend Works (Kyle)
+ *  How The Backend Works (Kyle)
  * 
  * 
  * https://www.youtube.com/watch?v=Gc4Xh8u19NU
-The Ultimate Web Developer Roadmap For 2024 
+    The Ultimate Web Developer Roadmap For 2024 
  * 
  * 
  * https://www.youtube.com/watch?v=uVwtVBpw7RQ
@@ -40,7 +39,6 @@ The Ultimate Web Developer Roadmap For 2024
  * https://www.youtube.com/watch?v=q-xS25lsN3I
  * What is Node.js and how it works (explained in 2 minutes)
  * (some words are not pronounced correctly)
- * 
  */
 
 /*
@@ -66,7 +64,6 @@ The Ultimate Web Developer Roadmap For 2024
     Front-end Focus: If your primary focus is on front-end development and you only need basic Next.js features for static site generation or simple client-side applications, you might be able to learn Next.js without a deep dive into Node.js beforehand. However, having a foundational understanding of Node.js concepts would still be beneficial in the long run.
     Time Constraints: If you're under strict time constraints and just want to quickly build something with Next.js, you might prioritize learning the essential Next.js functionalities and come back to Node.js later for a more comprehensive understanding.
     Overall, for a more well-rounded education and a smoother learning curve with Next.js, starting with Node.js is the recommended approach.
-
 */
 
 
@@ -134,5 +131,3 @@ No matter which path you choose, having a solid foundation in JavaScript is cruc
 
 
 */
-
-//5:22:42 Import of functions (Практика, модули CommonJS)
