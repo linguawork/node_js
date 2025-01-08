@@ -15,11 +15,32 @@
     Node.js Теория и практика 
     Ulbi Tv
     //Владилен поставил Топ Контент
+    Заметки:
+    demultiplexor of events
+    Node js это не язык а среда в которой можно выполнять
+    небраузерное взаимодействие
+
+    Работает на неблокирующем коде
+    21-01
+
+    */
+
+
+
+    /*
 
 
     Bogdan: 
     Node.js
     https://www.udemy.com/course/nodejs-ru/?couponCode=NEWYEARCAREER
 
+
+    Minin NodeJS:
+    https://www.youtube.com/watch?v=3aGSqasVPsI 
+
+
+    Node.js 🧑‍💻 Введение в технологию 
+    https://www.youtube.com/watch?v=mRvzgBGLVyM
+    Доп теория о Node JS
 
 */
