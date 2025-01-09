@@ -29,9 +29,10 @@ console.log('Получить абсолютный путь:',
     Получить абсолютный путь: /home/areggie/Desktop/node_js/UlbiNode/first/second/third
 */
 
+//получение пути
+const fullpath = path.resolve(__dirname, 'first', 'second', 'third.js')
 
 //parsing the string
-const fullpath = path.resolve(__dirname, 'first', 'second', 'third.js')
 console.log('Парсинг пути:',
     path.parse(fullpath))
 /*Output:
