@@ -45,7 +45,58 @@ console.log('Парсинг пути:',
 
 */
 
+
+/*
+    Why is it needed?
+    Node.js applications often work in cross-platform 
+    environments, meaning the code could run on different 
+    operating systems. The path.sep property provides 
+    a way to dynamically retrieve the correct separator 
+    for the system on which the code is running.
+*/
 console.log('разделитель в ОС:',
     path. sep)
 
 //43:20
+
+console.log('Проверка на абсолютный путь:',
+    path.isAbsolute('first/second'))
+/*
+    Output:
+    Проверка на абсолютный путь: false
+
+    When you are working with file paths, you may need to determine whether a given path is absolute or relative to handle it properly.
+
+*/
+
+console.log('Название файла', path.basename(fullpath))
+/*
+ third.js
+*/
+
+console.log('Расширение файла',path.extname(fullpath))
+
+//-----------------------------------------
+
+const siteURL = 'https://www.youtube.com/watch?v=243pQXC5Ebs'
+
+const url = new URL(siteURL)
+
+console.log(url)
+
+/*
+URL {
+  href: 'https://www.youtube.com/watch?v=243pQXC5Ebs',
+  origin: 'https://www.youtube.com',
+  protocol: 'https:',
+  username: '',
+  password: '',
+  host: 'www.youtube.com',
+  hostname: 'www.youtube.com',
+  port: '',
+  pathname: '/watch',
+  search: '?v=243pQXC5Ebs',
+  searchParams: URLSearchParams { 'v' => '243pQXC5Ebs' },
+  hash: ''
+}
+*/
