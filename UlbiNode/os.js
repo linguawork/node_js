@@ -45,3 +45,27 @@ for (let i = 0; i < cpus2.length; i++) {
 // console.log(coresInfo);  
 
 console.log(process.pid)
+
+
+//--------------------------------
+//About cluster
+console.log(`CLUSTER`)
+
+const cluster = require('cluster')
+const cpus3 = os.cpus()
+
+if (cluster.isMaster){
+    for(let i = 0; i< cpus3.length-2; i++){
+        //запуск дочернего процесса
+        cluster.fork()
+    }
+
+}else{
+    //при запуске дочерних процессов
+    console.log(`Воркер с pid= ${process.pid} запущен`)
+    setInterval(
+        ()=> console.log(`Воркер с pid= ${process.pid} все еще работает`),
+        5000
+    )
+}
+
