@@ -134,18 +134,18 @@ const writeFileAsync = async(path, data) =>{
     return new Promise( 
         //принимаем 2 регулярных аргумента и вставляем функцию
         //в качестве возвращаемого значения
-            (resolve, reject) => 
-                //delete path.resolve и просто подаем path
-            fs.writeFile(
-                path, // __dirname
-                data, // text
-                (err)=>{
-                    if (err){
-                        return reject(err.message)
-                    }
-                    resolve()//можно туда передать данные
+        (resolve, reject) => 
+            //delete path.resolve и просто подаем path
+        fs.writeFile(
+            path, // __dirname
+            data, // text
+            (err)=>{
+                if (err){
+                    return reject(err.message)
                 }
-            )
+                resolve()//можно туда передать данные
+            }
+        )
     )
 }
 
@@ -154,17 +154,17 @@ const appendFileAsync = async (path, data) =>{
     return new Promise( 
         //принимаем 2 регулярных аргумента и вставляем функцию
         //в качестве возвращаемого значения
-            (resolve, reject) => 
-            fs.appendFile(
-                path, 
-                data,
-                (err)=>{
-                    if (err){
-                        return reject(err.message)
-                    }
-                    resolve()
+        (resolve, reject) => 
+        fs.appendFile(
+            path, 
+            data,
+            (err)=>{
+                if (err){
+                    return reject(err.message)
                 }
-            )
+                resolve()
+            }
+        )
     )
 }
 
@@ -232,41 +232,40 @@ const appendFileAsync = async (path, data) =>{
     // runFileOperations();
 
 
-// READING FILE
-
+//READING FILE
 const readFileAsync = async (path, data) =>{
     return new Promise( 
         //принимаем 2 регулярных аргумента и вставляем функцию
         //в качестве возвращаемого значения
-            (resolve, reject) => 
-            fs.readFile(
-                path, 
-                {encoding: 'utf8'},
-                (err, data)=>{
-                    if (err){
-                        return reject(err.message)
-                    }
-                    resolve(data)
+        (resolve, reject) => 
+        fs.readFile(
+            path, 
+            {encoding: 'utf8'},
+            (err, data)=>{
+                if (err){
+                    return reject(err.message)
                 }
-            )
+                resolve(data)
+            }
+        )
     )
 }
 
 //REMOVING FILE"
-const removeFileAsync = async (path, data) =>{
+const removeFileAsync = async (path) =>{
     return new Promise( 
         //принимаем 2 регулярных аргумента и вставляем функцию
         //в качестве возвращаемого значения
-            (resolve, reject) => 
-            fs.rm(
-                path, 
-                (err)=>{
-                    if (err){
-                        return reject(err.message)
-                    }
-                    resolve()
+        (resolve, reject) => 
+        fs.rm(
+            path, 
+            (err)=>{
+                if (err){
+                    return reject(err.message)
                 }
-            )
+                resolve()
+            }
+        )
     )
 }
 
@@ -280,12 +279,47 @@ const removeFileAsync = async (path, data) =>{
 // .catch(err => console.log(err.message))  
 
 /*
-Reading with encoding:
-data123456789
+    Reading with encoding:
+    data123456789
 
-Reading without encoding:
-<Buffer 64 61 74 61 31 32 33 34 35 36 37 38 39>
+    Reading without encoding:
+    <Buffer 64 61 74 61 31 32 33 34 35 36 37 38 39>
 */
 
-removeFileAsync(path.resolve(__dirname, 'test2.txt'))
-.then( () => console.log('file deleted') )
+// removeFileAsync(path.resolve(__dirname, 'test2.txt'))
+// .then( () => console.log('file deleted') )
+
+
+
+/*
+EXERCISE:
+    Через переменную окружения передеать строку,
+    записать ее в файл,
+    прочитать файл,
+    прочитать кол-во слов в файле,
+    записать их в новый файл count.txt, 
+    удалить первый файл
+*/
+//getting text from env
+const text = process.env.TEXT || ''
+
+//creating and writing file
+writeFileAsync(path.resolve(__dirname, "text.txt"), text)
+//передаем далее этот файл на чтение
+.then(
+    ()=>readFileAsync(path.resolve(__dirname, "text.txt"))
+)
+//we get the text
+.then(
+    data=> data.split(' ').length
+)
+.then(
+    count =>writeFileAsync(path.resolve(__dirname, 'count.txt'),`Кол-во слов ${count}`)
+)
+.then(()=>removeFileAsync(path.resolve(__dirname, "text.txt")))
+.catch(err => console.log(err.message))  
+
+/*
+    When executing:
+    in CLI: npx cross-env TEXT="1 2 3 4 5 6 ulbi" node ./file-system.js
+*/
