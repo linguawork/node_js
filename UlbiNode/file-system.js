@@ -271,13 +271,13 @@ const removeFileAsync = async (path, data) =>{
 }
 
 
-writeFileAsync(path.resolve(__dirname, 'test2.txt'), 'data')
-.then( ()=> appendFileAsync(path.resolve(__dirname, 'test2.txt'), '123' ))  
-.then( ()=> appendFileAsync(path.resolve(__dirname, 'test2.txt'), '456' ))  
-.then( ()=> appendFileAsync(path.resolve(__dirname, 'test2.txt'), '789' )) 
-.then( ()=> readFileAsync(path.resolve(__dirname, 'test2.txt') )) // reading
-.then(data => console.log(data))  
-.catch(err => console.log(err.message))  
+// writeFileAsync(path.resolve(__dirname, 'test2.txt'), 'data')
+// .then( ()=> appendFileAsync(path.resolve(__dirname, 'test2.txt'), '123' ))  
+// .then( ()=> appendFileAsync(path.resolve(__dirname, 'test2.txt'), '456' ))  
+// .then( ()=> appendFileAsync(path.resolve(__dirname, 'test2.txt'), '789' )) 
+// .then( ()=> readFileAsync(path.resolve(__dirname, 'test2.txt') )) // reading
+// .then(data => console.log(data))  
+// .catch(err => console.log(err.message))  
 
 /*
 Reading with encoding:
@@ -286,3 +286,6 @@ data123456789
 Reading without encoding:
 <Buffer 64 61 74 61 31 32 33 34 35 36 37 38 39>
 */
+
+removeFileAsync(path.resolve(__dirname, 'test2.txt'))
+.then( () => console.log('file deleted') )
