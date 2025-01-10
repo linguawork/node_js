@@ -126,6 +126,8 @@ const path = require('path')
 
 /** Escaping callback hell  with adding
  writing functions inside another one
+
+ We can use promises
 */
 
 const writeFileAsync = async(path, data) =>{
@@ -166,11 +168,14 @@ const appendFileAsync = async (path, data) =>{
     )
 }
 
-writeFileAsync(path.resolve(__dirname, 'test2.txt'), 'data')
-.then( ()=> appendFileAsync(path.resolve(__dirname, 'test2.txt'), '123' ))  
-.then( ()=> appendFileAsync(path.resolve(__dirname, 'test2.txt'), '456' ))  
-.then( ()=> appendFileAsync(path.resolve(__dirname, 'test2.txt'), '789' ))
-.catch(err => console.log(err.message))  
+
+
+// we may use promises or async await
+    // writeFileAsync(path.resolve(__dirname, 'test2.txt'), 'data')
+    // .then( ()=> appendFileAsync(path.resolve(__dirname, 'test2.txt'), '123' ))  
+    // .then( ()=> appendFileAsync(path.resolve(__dirname, 'test2.txt'), '456' ))  
+    // .then( ()=> appendFileAsync(path.resolve(__dirname, 'test2.txt'), '789' ))
+    // .catch(err => console.log(err.message))  
 
 
 
@@ -178,52 +183,106 @@ writeFileAsync(path.resolve(__dirname, 'test2.txt'), 'data')
 
 //IIFE approach with just async-await without then() chaining
 
-// Write 'data' to the file and then append data
-(async () => {
-    try {
-        // Write 'data' to the file
-        await writeFileAsync(path.resolve(__dirname, 'test3.txt'), 'data\n');
-        
-        // Append '123' to the file
-        await appendFileAsync(path.resolve(__dirname, 'test3.txt'), '123\n');
-        
-        // Append '456' to the file
-        await appendFileAsync(path.resolve(__dirname, 'test3.txt'), '456\n');
-        
-        // Append '789' to the file
-        await appendFileAsync(path.resolve(__dirname, 'test3.txt'), '789\n');
+    // // Write 'data' to the file and then append data
+    // (async () => {
+    //     try {
+    //         // Write 'data' to the file
+    //         await writeFileAsync(path.resolve(__dirname, 'test3.txt'), 'data\n');
+            
+    //         // Append '123' to the file
+    //         await appendFileAsync(path.resolve(__dirname, 'test3.txt'), '123\n');
+            
+    //         // Append '456' to the file
+    //         await appendFileAsync(path.resolve(__dirname, 'test3.txt'), '456\n');
+            
+    //         // Append '789' to the file
+    //         await appendFileAsync(path.resolve(__dirname, 'test3.txt'), '789\n');
 
-        console.log('File has been updated successfully!');
-    } catch (err) {
-        console.log('Error:', err);
-    }
-})();
+    //         console.log('File has been updated successfully!');
+    //     } catch (err) {
+    //         console.log('Error:', err);
+    //     }
+    // })();
 
 
 
 //WITHOUT IIFE,using function name
 //Define an async function to run the operations
-const runFileOperations = async () => {
-    try {
-        // Write 'data' to the file
-        await writeFileAsync(path.resolve(__dirname, 'test3.txt'), 'data\n');
-        
-        // Append '123' to the file
-        await appendFileAsync(path.resolve(__dirname, 'test3.txt'), '123\n');
-        
-        // Append '456' to the file
-        await appendFileAsync(path.resolve(__dirname, 'test3.txt'), '456\n');
-        
-        // Append '789' to the file
-        await appendFileAsync(path.resolve(__dirname, 'test3.txt'), '789\n');
+    // const runFileOperations = async () => {
+    //     try {
+    //         // Write 'data' to the file
+    //         await writeFileAsync(path.resolve(__dirname, 'test3.txt'), 'data\n');
+            
+    //         // Append '123' to the file
+    //         await appendFileAsync(path.resolve(__dirname, 'test3.txt'), '123\n');
+            
+    //         // Append '456' to the file
+    //         await appendFileAsync(path.resolve(__dirname, 'test3.txt'), '456\n');
+            
+    //         // Append '789' to the file
+    //         await appendFileAsync(path.resolve(__dirname, 'test3.txt'), '789\n');
 
-        console.log('File has been updated successfully!');
-    } catch (err) {
-        console.log('Error:', err);
-    }
+    //         console.log('File has been updated successfully!');
+    //     } catch (err) {
+    //         console.log('Error:', err);
+    //     }
+    // }
+
+    // // Call the function to run everything
+    // runFileOperations();
+
+
+// READING FILE
+
+const readFileAsync = async (path, data) =>{
+    return new Promise( 
+        //принимаем 2 регулярных аргумента и вставляем функцию
+        //в качестве возвращаемого значения
+            (resolve, reject) => 
+            fs.readFile(
+                path, 
+                {encoding: 'utf8'},
+                (err, data)=>{
+                    if (err){
+                        return reject(err.message)
+                    }
+                    resolve(data)
+                }
+            )
+    )
 }
 
-// Call the function to run everything
-runFileOperations();
+//REMOVING FILE"
+const removeFileAsync = async (path, data) =>{
+    return new Promise( 
+        //принимаем 2 регулярных аргумента и вставляем функцию
+        //в качестве возвращаемого значения
+            (resolve, reject) => 
+            fs.rm(
+                path, 
+                (err)=>{
+                    if (err){
+                        return reject(err.message)
+                    }
+                    resolve()
+                }
+            )
+    )
+}
 
 
+writeFileAsync(path.resolve(__dirname, 'test2.txt'), 'data')
+.then( ()=> appendFileAsync(path.resolve(__dirname, 'test2.txt'), '123' ))  
+.then( ()=> appendFileAsync(path.resolve(__dirname, 'test2.txt'), '456' ))  
+.then( ()=> appendFileAsync(path.resolve(__dirname, 'test2.txt'), '789' )) 
+.then( ()=> readFileAsync(path.resolve(__dirname, 'test2.txt') )) // reading
+.then(data => console.log(data))  
+.catch(err => console.log(err.message))  
+
+/*
+Reading with encoding:
+data123456789
+
+Reading without encoding:
+<Buffer 64 61 74 61 31 32 33 34 35 36 37 38 39>
+*/
