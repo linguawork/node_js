@@ -10,11 +10,18 @@ const http = require('http');
 //const server = http.createServer({})
 // второй аргумент -  event Listener func
 const server = http.createServer((req, res) => {
-    // req(uest) = это readable stream (incoming msg)
-    // res(ponse) = это writable stream (outcoming msg)
+    /* req(uest) = это readable stream (incoming msg)
+     res(ponse) = это writable stream (outcoming msg) */
 
-    //чтобы пользователь могут получить ответ от сервера
-    //надо закрыть outcoming стрим передать данные
+
+     //записали хедер, чтобы браузер мог прочитать кодировку в кириллице
+     //явно указали кодировку
+     res.writeHead(200, {'content-type': 'text/html; charset=utf-8'})
+
+
+
+    /*чтобы пользователь могут получить ответ от сервера
+    надо закрыть outcoming стрим передать данные*/
     res.end('Сервер работает!!!'); //1:19:03
     //это строка, есть ответ пользователю на его запрос
 });
@@ -22,10 +29,9 @@ const server = http.createServer((req, res) => {
 const PORT = process.env.PORT || 5000;
 
 /*
-слушаем порт, порт получим из переменных окружения.
-первый арг - Порт
-второй - коллбек
-
+    слушаем порт, порт получим из переменных окружения.
+    первый арг - Порт
+    второй - коллбек
 */
 server.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
