@@ -4,7 +4,7 @@
   "description": "ulbi tv node course",
   "main": "ulbi_content.js",
   "scripts": {
-    "start": "node ./process.js "
+    "start": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
@@ -12,5 +12,8 @@
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
     "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
   }
 }

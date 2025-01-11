@@ -4,19 +4,22 @@
     создание своего сервера по типу express.js
 */
 
-const http =require('http')
+const http = require('http');
 
 //первый аргумент - обжект: опции (пропустим)
 //const server = http.createServer({})
 // второй аргумент -  event Listener func
-const server = http.createServer(
-    (req, res)=>{
+const server = http.createServer((req, res) => {
+    // req(uest) = это readable stream (incoming msg)
+    // res(ponse) = это writable stream (outcoming msg)
 
-    }
-)
+    //чтобы пользователь могут получить ответ от сервера
+    //надо закрыть outcoming стрим передать данные
+    res.end('Сервер работает!!!'); //1:19:03
+    //это строка, есть ответ пользователю на его запрос
+});
 
-
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5000;
 
 /*
 слушаем порт, порт получим из переменных окружения.
@@ -24,9 +27,9 @@ const PORT = process.env.PORT || 5000
 второй - коллбек
 
 */
-server.listen(PORT, ()=>{
-    console.log(`Server started on port ${PORT}`)
-})
+server.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
+});
 //run node index.js in terminal
 
 /*
