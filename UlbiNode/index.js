@@ -13,19 +13,24 @@ const server = http.createServer((req, res) => {
     /* req(uest) = это readable stream (incoming msg)
      res(ponse) = это writable stream (outcoming msg) */
 
+    //сервер с REST API.
+    //будем обмениваться с сервером в формате JSON, 1:20:34
+    // у объекта request есть поле url
+    // req.url
 
-     //записали хедер, чтобы браузер мог прочитать текст в html
-     res.writeHead(200, {'content-type': 'text/html;'})
+    /*
+        чтобы пользователь могут получить ответ от сервера
+        надо закрыть outcoming стрим передать данные. Будем
+        передавать по  endpoint: url
 
+        req.url будет передавать /
+        Все что будем писать после / (слеша)
+        Например: http://localhost:5000/aswdas/asdfas
+        the browser will show: /aswdas/asdfas
 
-
-    /*чтобы пользователь могут получить ответ от сервера
-    надо закрыть outcoming стрим передать данные, 
-    здесь готовим html разметку на сервере и отправляем на клиент, 
-    который в браузере по порту видит изображение*/
-    res.end(`<h1> My server on JS 
-        <button>Button</button>
-        </h1>`); //1:20:11
+        на каждый url можно написать свою логику
+    */
+    res.end(req.url); //1:20:38
     //это строка, есть ответ пользователю на его запрос
 });
 
