@@ -9,24 +9,8 @@ const emitter = new Emitter
 
 // у сущности есть свои методы для событий
 
-/*1 метод: on
-первый арг - EventName 
 
-второй арг -callback который может принимать неогранич кол-во арг
- - это реакция на событие
-*/
-emitter.on( 'message', (data, second, third) => {
-        console.log("You have sent us the msg: " + data)
-        console.log("The second argument is: " + second)
-    }      
-)
 
-//событие лищь один ра
-emitter.once( 'message', (data, second, third) => {
-    console.log("You have sent us the msg: " + data)
-    console.log("The second argument is: " + second)
-}      
-)
 
 /*
 В Node.js текст и другие данные могут приходить через переменные окружения (environment variables), потому что это стандартный способ обмена информацией между операционной системой, приложением и его окружением. Переменные окружения позволяют передавать конфигурационные данные, параметры или секреты (например, ключи API или параметры базы данных), которые не должны быть жестко закодированы в исходном коде приложения.
@@ -47,11 +31,27 @@ emitter.once( 'message', (data, second, third) => {
 
 
 */
+
+
+/*1 метод: on
+первый арг - EventName 
+
+второй арг -callback который может принимать неогранич кол-во арг
+ - это реакция на событие
+*/
+emitter.on( 'message', (data, second, third) => {
+        console.log(`You have sent us the msg1:  + ${data}`)
+        console.log(`The second argument is1:  + ${second}`)
+    }      
+)
+
+
 // const MESSAGE = process.env.message || ''
 const MESSAGE = 'Привет' || ''
 
 
 if (MESSAGE){
+    // на событие можно запускать бесконечное количество раз и разные реакции
     emitter.emit('message', MESSAGE, 123)
 } else{
     emitter.emit('message', 'Вы не указали сообщение')
@@ -61,13 +61,80 @@ if (MESSAGE){
 // to test, run in CLI: cross-env MESSAGE="message 123" node ./events.js
 
 /*
-
-Когда удобно мспользоваит
-    http
-    websocker
-    long pulling
-    clusters
-
+    Когда удобно мспользоваит
+        http
+        websocker
+        long pulling
+        clusters
 */
 
-//1:08:
+//const MESSAGE = process.env.message || ''
+const MESSAGE2 = 'Сообщение для функции ONCE' || ''
+
+
+if (MESSAGE2){
+    
+    emitter.emit('message', MESSAGE2, 'Это второй аргумент')
+} else{
+    emitter.emit('message', 'Вы не указали сообщение')
+}
+
+//Иногда нужно запускать событие лишь один раз
+//для этого есть функция once
+emitter.once( 'message', (data, second, third) => {
+        console.log("Вы отправили сообщение через функцию ONCE: " + data)
+        console.log("Второй аргумент: " + second)
+    }      
+)
+
+// на событие можно запускать бесконечное количество раз и разные реакции
+//отработал один раз только от функции ONCE
+console.log('This is the first emitter')
+emitter.emit('message')
+
+//отработал по предыдущему emitter
+console.log('This is the second emitter')
+emitter.emit('message')
+
+//отработал по предыдущему emitter
+console.log('This is the third emitter')
+emitter.emit('message')
+
+
+
+//---------------
+const data = [
+    {
+        id:1, 
+        name: "Vas"
+    }, 
+    {
+        id:2, 
+        name: "Vas2"
+    }
+]
+
+
+const second = [1, 2]
+
+const worker =(data, second, third) => {
+    console.log(`Callback separate: ${data}`)
+    console.log(`Callback's second arg: ${second}`)
+}     
+
+/*
+worker() is invoking the function immediately and passing 
+the result (undefined because worker doesn't return anything)
+ to emitter.on(). You should pass the function 
+ reference instead of invoking it:
+
+ Reasoning: The proper way is to pass 
+ the function worker (without parentheses) to ensure 
+ it's called when the event is emitted, 
+ not immediately upon setup.
+
+*/
+emitter.on( 'message',  worker)
+
+//emitter.removeAllListeners()
+emitter.removeListener('message',  worker)
