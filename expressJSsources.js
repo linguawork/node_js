@@ -14,6 +14,15 @@
  * and mobile applications.
  */
 
+/*
+https://www.youtube.com/watch?v=-k_59yF_5GA
+
+ПОЛНЫЙ КУРС NODE JS / EXPRESS за 2 часа - С НУЛЯ до ПРОФИ!
+Red group
+
+*/
+
+
 
 
 //https://www.youtube.com/watch?v=CnH3kAXSrmU

@@ -73,9 +73,9 @@ server.listen(PORT, () => {
 //run node index.js in terminal or npm start with nodemon
 
 /*
-Output: 
-c2r11s10% node index.js 
-Server started on port 5000
- 
-1:18:51
+    Output: 
+    c2r11s10% node index.js 
+    Server started on port 5000
+    
+    1:18:51
 */
