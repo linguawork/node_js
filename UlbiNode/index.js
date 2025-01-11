@@ -30,6 +30,21 @@ const server = http.createServer((req, res) => {
 
         на каждый url можно написать свою логику
     */
+
+    if(req.url === '/users'){
+        return res.end('USERS')
+    }
+
+    if(req.url === '/posts'){
+        return res.end('POSTS')
+    }
+
+    /*
+        req.url будет передавать /
+        Все что будем писать после / (слеша)
+        Например: http://localhost:5000/aswdas/asdfas
+        the browser will show: /aswdas/asdfas
+    */    
     res.end(req.url); //1:20:38
     //это строка, есть ответ пользователю на его запрос
 });
@@ -44,7 +59,7 @@ const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
 });
-//run node index.js in terminal
+//run node index.js in terminal or npm start with nodemon
 
 /*
 Output: 
