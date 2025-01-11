@@ -31,8 +31,19 @@ const server = http.createServer((req, res) => {
         на каждый url можно написать свою логику
     */
 
+        //telling that we are sending json
+    res.writeHead(200, {
+        'Content-Type': 'application/json'
+    })
+
+
     if(req.url === '/users'){
-        return res.end('USERS')
+        return res.end(JSON.stringify([
+            {
+                id:1, 
+                name: 'Ulbi tv'
+            }
+        ]))
     }
 
     if(req.url === '/posts'){
