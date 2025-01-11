@@ -33,12 +33,12 @@
     */
 
 //We can also read the same file with stream, withour callback
-const stream = fs.createReadStream(path.resolve(__dirname, 'fakefile1.txt'), {''})
+    // const stream = fs.createReadStream(path.resolve(__dirname, 'fakefile.txt'), {''})
 
 //stream will read on event
-stream.on('data', (chunk)=>{
-    console.log(chunk)
-})
+    // stream.on('data', (chunk)=>{
+    //     console.log(chunk)
+    // })
 
 //file generator: https://testdatahub.com/generate_files
 
@@ -51,8 +51,8 @@ stream.on('data', (chunk)=>{
     <Buffer 6f 72 65 6d 20 69 70 73 75 6d 20 64 6f 6c 6f 72 20 73 69 74 20 61 6d 65 74 2c 20 63 6f 6e 73 65 63 74 65 74 75 72 20 61 64 69 70 69 73 63 69 6e 67 20 ... 45006 more bytes>
 */
 
-stream.on('end', ()=> console.log('закончили читать'))
-stream.on('open', ()=> console.log('начали читать'))
+    // stream.on('end', ()=> console.log('закончили читать'))
+    // stream.on('open', ()=> console.log('начали читать'))
 
 /*
 начали читать
@@ -64,8 +64,9 @@ stream.on('open', ()=> console.log('начали читать'))
 закончили читать
 */
 
-//очень важно обрабатывать ошибки. Иначе может упасть весь NodeJs
-stream.on('error', (e)=> console.log(e))
+//очень важно обрабатывать ошибки. Иначе может упасть весь NodeJs.
+//Изменили файл
+// stream.on('error', (e)=> console.log(e))
 /*
     [Error: ENOENT: no such file or directory, open '/home/areggie/Desktop/node_js/UlbiNode/fakefile1.txt'] {
     errno: -2,
@@ -76,10 +77,53 @@ stream.on('error', (e)=> console.log(e))
 */
 
 
-const writableStream = fs.createWriteStream(path.resolve(__dirname,'target.txt'))
-for (let i = 0; i < 20; i++){
-    //метод модуля http:
-    writableStream.write(i + '\n')
-}
-//метод модуля http:
-writableStream.end()
+    // const writableStream = fs.createWriteStream(path.resolve(__dirname,'target.txt'))
+    // for (let i = 0; i < 20; i++){
+    //     //метод модуля http:
+    //     writableStream.write(i + '\n')
+    // }
+    // //метод модуля http:
+    // writableStream.end()
+
+    // /*
+    //     у writableStream
+
+    //     может быть много других методов, 
+    //     они отличаются разными коллбеками
+    // */
+    // writableStream.close()
+    // writableStream.destroy()
+    // writableStream.on()
+
+   /*
+   в http модуле, в методе сreateServer()
+   также есть два объекта, которые являются процессами на запись и
+   на чтение
+   */
+
+   const http = require('http')
+   http.createServer(
+    (req, res) =>{
+        // req(uest) = это readable stream (incoming msg)
+        // res(ponse) = это writable stream (outcoming msg)
+        
+        // например, получение файла от клиента и
+        // отправка сообщения
+
+        const stream = fs.createReadStream(path.resolve(__dirname, 'test3.txt'))
+        
+        
+        //СТРИМ ЗАКОНЧИТ ЧИТАТЬ РАНЬШЕ, ЧЕМ ПОЛЬЗОВАТЕЛЬ УСПЕЕТ ВСЕ ВЫКАЧАТЬ
+            // //отправляем этот кусочек пользователю по сети
+            // stream.on('data', chunk => res.write(chunk))
+            
+            // //завершение подключения
+            // stream.on('end', chunk => res.end())
+
+        //ЧТОБЫ ПОЛЬЗОВАТЕЛЬ УСПЕЛ СКАЧАТЬ, НУЖЕН МЕТОД PIPE()
+        stream.pipe(res)
+        //этот метод достигает синхронизации между readable and writable stream
+        // need to process errors
+
+    }
+   )
