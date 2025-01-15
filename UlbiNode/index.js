@@ -144,8 +144,15 @@ const server = http.createServer((req, res) => {
     //события, то есть по шаблону события: 
     //`[${path}]:[${method}]`
     //параметры такие же как в функции emitter.on(`[${path}]:[${method}]`, (req, res)
-    emitter.emit(`[${req.url}]:[${req.method}]`, req, res)
+   const emitted = emitter.emit(`[${req.url}]:[${req.method}]`, req, res)
     
+
+   //если неизвестный url, то закрываем поток, 
+   //чтобы он не висел
+   //endpoints work normally
+   if(!emitted){
+        res.end()
+    }
     /*
     The line below cause crashing:
     In your framework, you're emitting an event 
