@@ -6,50 +6,25 @@
 
 
 const PORT = process.env.PORT || 5000;
-
-
-/* 
-    скобки () — для передачи аргументов в конструктор
-    Когда создается экземпляр класса в JavaScript, 
-    используется синтаксис с new и скобками ()
-    для вызова конструктора класса. 
-*/
-//импорт класса
-const Router = require('./framework/Router')
-//router.request('GET')
-/* 
-    Можно вызывать так, используя каждый метод
-    router.request('GET')
-    
-    А можно в классе router написать 
-    4 метода, используя request внутри них
-    
-    get(path, handler){
-        this.request('GET', path, handler)
-        }
-        
-    и тд
-*/
-
 //import of class Application 
 const App = require('./framework/Application')
-
+const userRouter = require('./src/user-router')
 const app = new App()//dont forget to instantiate after import
 
-const router = new Router() //dont forget to instantiate after import
-       
-//логика ответа
-router.get('/users', (req, res)=>{
-    console.log("Here")
-    res.end('YOU HAVE SENT THE REQUEST TO /USERS')
-})
+ //перекинули маршруты в другой файл для передачи массива      
+            //логика ответа
+            // router.get('/users', (req, res)=>{
+            //     console.log("Here")
+            //     res.end('YOU HAVE SENT THE REQUEST TO /USERS')
+            // })
 
-router.get('/posts', (req, res)=>{
-    res.end('YOU HAVE SENT THE REQUEST TO /POSTS')
-})
+            // router.get('/posts', (req, res)=>{
+            //     res.end('YOU HAVE SENT THE REQUEST TO /POSTS')
+            // })
 
 //закинули router c функциями get в app
-app.addRouter(router)
+//закинули userRouter c функциями для передачи массива
+app.addRouter(userRouter)
 
 
 /*

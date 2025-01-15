@@ -23,11 +23,10 @@ module.exports = class Application{
             //`[${path}]:[${method}]`
             //параметры такие же как в функции emitter.on(`[${path}]:[${method}]`, (req, res)
             //this. added to emitter, the mask is decided to move to different function
-            // the function can be reused
+            //the function can be reused
             const emitted = 
             this.emitter.emit(this._getRouteMask(req.url,req.method), req, res)
             
-
             //если неизвестный url, то закрываем поток, 
             //чтобы он не висел
             //endpoints work normally
@@ -37,7 +36,7 @@ module.exports = class Application{
         })
     }
 
-    //private function again:вынесли сюда маску
+    //private function again: вынесли сюда маску
     _getRouteMask(path, method){
         return `[${path}]:[${method}]`
     }
@@ -75,7 +74,6 @@ module.exports = class Application{
         без необходимости менять логику вручную для каждого конкретного маршрута.
         
     */
-
 
 
 
