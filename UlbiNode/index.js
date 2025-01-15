@@ -50,17 +50,17 @@ class Router{
             //if no path like "/users", we initialize with empty obj
             this.endpoints[path] = {}
         }
-        // '/users' 
-        // сохраняем в другую переменную
+        //'/users' 
+        //сохраняем в другую переменную
         const endpoint = this.endpoints[path]
 
-        // обращаемся к методу внутри path [GET, POST, PUT] [GET, POST, PUT, DELETE]
-        // проверяем наличие метода, если он уже есть
+        //обращаемся к методу внутри path [GET, POST, PUT] [GET, POST, PUT, DELETE]
+        //проверяем наличие метода, если он уже есть
         if(endpoint[method]){
             throw new Error(`[${method}] по адресу ${path} уже существует`  )
         }
         //если метода нет, то цепляем handler и событие к нему
-        // import event
+        //import event
         endpoint[method] = handler
         /*
             1:24:49 
@@ -83,23 +83,91 @@ class Router{
 
         })
     }
+
+    get(path, handler){
+        this.request('GET', path, handler)
+    }
+
+    post(path, handler){
+        this.request('POST', path, handler)
+    }
+
+    put(path, handler){
+        this.request('PUT', path, handler)
+    }
+
+    delete(path, handler){
+        this.request('DELETE', path, handler)
+    }
 }
 
 
-/* скобки () — для передачи аргументов в конструктор
-Когда создается экземпляр класса в JavaScript, 
-используется синтаксис с new и скобками ()
- для вызова конструктора класса. 
+/* 
+    скобки () — для передачи аргументов в конструктор
+    Когда создается экземпляр класса в JavaScript, 
+    используется синтаксис с new и скобками ()
+    для вызова конструктора класса. 
 */
 const router = new Router()
+//router.request('GET')
+
+/* 
+    Можно вызывать так, используя каждый метод
+    router.request('GET')
+
+    А можно в классе router написать 
+    4 метода, используя request внутри них
+
+    get(path, handler){
+    this.request('GET', path, handler)
+    }
+
+    и тд
+*/
+
+
+//логика ответа
+router.get('/users', (req, res)=>{
+    res.end('YOU HAVE SENT THE REQUEST TO /USERS')
+})
+
+router.get('/posts', (req, res)=>{
+    res.end('YOU HAVE SENT THE REQUEST TO /POSTS')
+})
 
 
 
 
 const server = http.createServer((req, res) => {
+    
+    //эмитим события, которые прописали в логике по названию 
+    //события, то есть по шаблону события: 
+    //`[${path}]:[${method}]`
+    //параметры такие же как в функции emitter.on(`[${path}]:[${method}]`, (req, res)
+    emitter.emit(`[${req.url}]:[${req.method}]`, req, res)
+    
+    /*
+    The line below cause crashing:
+    In your framework, you're emitting an event 
+    like [path]:[method] 
+    which triggers the corresponding handler. 
+    If the handler itself calls res.end() or 
+    sends a response, that means the connection 
+    has already been closed. Trying to call 
+    res.end(req.url) afterward would result in
+    a crash or undefined behavior.
 
-    res.end(req.url); 
- 
+    Your current code does not need to call 
+    res.end(req.url) at all in the server creation. 
+    The router.get('/users', handler) already sends 
+    a response back when a request is received 
+    at /users.
+    
+    */
+    
+    
+    
+    // res.end(req.url); 
 });
 
 
@@ -114,4 +182,4 @@ server.listen(PORT, () => {
 //run node index.js in terminal or npm start with nodemon
 
 
-// 1:23:27
+
