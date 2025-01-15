@@ -15,7 +15,8 @@ const PORT = process.env.PORT || 5000;
 //нужны будут события для handler
 const emitter = new EventEmitter();
 
-
+//импорт класса
+const Router = require('./framework/Router')
 
 
  
