@@ -18,7 +18,29 @@ The logics is the same:
 //baseUrl передаем всю строку до users
 module.exports = (baseUrl) => (req, res) =>{
     const parsedUrl = new URL(req.url, baseUrl)
-    console.log(parsedUrl)
+    //console.log(parsedUrl)//see output
+
+    return  req.pathname = parsedUrl.pathname // is /users 
+    /* 
+        см ниже
+        Объект URL изменил  req.url на  parsedUrl.pathname  
+    */
 }
 
-
+/*
+    Output
+    URL {
+    href: 'http://localhost:5001/users',
+    origin: 'http://localhost:5001',
+    protocol: 'http:',
+    username: '',
+    password: '',
+    host: 'localhost:5001',
+    hostname: 'localhost',
+    port: '5001',
+    pathname: '/users',
+    search: '',
+    searchParams: URLSearchParams {},   //это и есть query parameters
+    hash: ''
+}
+*/

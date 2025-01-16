@@ -33,7 +33,7 @@ URL {
   port: '5001',
   pathname: '/users',
   search: '',
-  searchParams: URLSearchParams {},
+  searchParams: URLSearchParams {},   //это и есть query parameters
   hash: ''
 }
 

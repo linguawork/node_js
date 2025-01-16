@@ -53,14 +53,31 @@ module.exports = class Application{
                     req.body = JSON.parse(body)
                 }
 
+            /*
+                1:46:44 adding middleware array not before handler 
+                (бежим по массиву и вызываем функции, переводим данные в JSON)
+                The assumption is that the middlewares are modifying 
+                the request or response in some way, such as converting 
+                data into JSON format.
+
+                
+            */
+                this.middlewares.forEach(middleware => middleware(req,res))
+
+
             //эмитим события, которые прописали в логике по названию 
             //события, то есть по шаблону события: 
             //`[${path}]:[${method}]`
             //параметры такие же как в функции emitter.on(`[${path}]:[${method}]`, (req, res)
             //this. added to emitter, the mask is decided to move to different function
             //the function can be reused
+
+            //передвинули middleware непосредственно перед генерацией события,
+            // a не перед хандлером, чтобы Pathname уже был доступен
+            //changed from req.url req.pathname
+            console.log(req.pathname)
             const emitted = 
-            this.emitter.emit(this._getRouteMask(req.url,req.method), req, res)
+            this.emitter.emit(this._getRouteMask(req.pathname,req.method), req, res)
             
             //если неизвестный url, то закрываем поток, 
             //чтобы он не висел
@@ -127,14 +144,7 @@ module.exports = class Application{
             Object.keys(endpoint).forEach(method =>{
                 const handler = endpoint[method] // Получаем обработчик для метода
                     this.emitter.on(this._getRouteMask(path, method), (req, res) => {
-                    /*
-                        1:39:22 adding middleware array before handler (бежим по массиву и 
-                        и вызываем функции, переводим данные в JSON)
-                        The assumption is that the middlewares are modifying 
-                        the request or response in some way, such as converting 
-                        data into JSON format.
-                    */
-                    this.middlewares.forEach(middleware => middleware(req,res))
+
                     
                     //внутри события используем handler с двумя стримами
                     //принимаем от пользователя запрос и отправляем ответ
