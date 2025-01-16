@@ -12,8 +12,33 @@ const userRouter = require('./src/user-router')
 //1:39:42 import of middleware
 const jsonParser = require('./framework/parseJson')
 
+//import of parsed query url: 1-44:34
+const parsedUrl = require('./framework/parseUrl')
 
 const app = new App()//dont forget to instantiate after import
+
+
+//закинули миддлвер в массив миддлверов
+app.use(parsedUrl('http://localhost:5001'))//передаем как ссылку
+/*
+Output
+URL {
+  href: 'http://localhost:5001/users',
+  origin: 'http://localhost:5001',
+  protocol: 'http:',
+  username: '',
+  password: '',
+  host: 'localhost:5001',
+  hostname: 'localhost',
+  port: '5001',
+  pathname: '/users',
+  search: '',
+  searchParams: URLSearchParams {},
+  hash: ''
+}
+
+
+*/
 
 
 //закинули миддлвер в массив
