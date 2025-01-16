@@ -5,8 +5,8 @@ module.exports = (req, res) =>{
         res.writeHead(200, {
             'Content-type': 'application/json'
         })
-
         res.end(JSON.stringify(data))
     }
-
 }
+
+//метод будет использован в class Application

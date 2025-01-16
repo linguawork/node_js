@@ -7,6 +7,13 @@ module.exports = class Application{
         //не будем создавать через createServer
         //сделаем через метод класса 1:30:28
         this.server = this._createServer()
+        //1:38:54, adding middlewares to array
+        this.middlewares =[]
+    }
+
+    use(middleware){
+        this.middlewares.push(middleware)
+
     }
 
     //отработает тогда когда сервер запустился
@@ -87,6 +94,11 @@ module.exports = class Application{
             Object.keys(endpoint).forEach(method =>{
                 const handler = endpoint[method] // Получаем обработчик для метода
                     this.emitter.on(this._getRouteMask(path, method), (req, res) => {
+
+                    //1:39:22 adding middleware array before handler (бежим по массиву и 
+                    // и вызываем функции, переводим данные в JSON)
+                    this.middlewares.forEach(middleware => middleware(req,res))
+                    
                     //внутри события используем handler с двумя стримами
                     //принимаем от пользователя запрос и отправляем ответ
                     //Вызов обработчика для текущего метода маршрута
