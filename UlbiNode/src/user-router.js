@@ -93,6 +93,16 @@ router.get('/posts', (req, res)=>{
 })
 
 
+
+//1:40:39
+//working with post request, to test via Postman
+router.post('/users', (req, res)=>{
+    console.log(req.body)
+    const user = req.body
+    users.push(user)
+    res.send(user)
+})
+
 module.exports =router //will import it as userRouter
 
 

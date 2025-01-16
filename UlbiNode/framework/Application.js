@@ -25,6 +25,34 @@ module.exports = class Application{
     //_ means the method is private and should not be used outside
     _createServer(){
         return http.createServer((req, res) =>{
+            /*1:41:44 
+            Для post запроса от клиента нужно req stream прочитать
+
+            */
+
+            let body = ""
+            //data - данные для передачи
+            req.on('data', (chunk) =>{
+                 console.log(chunk)
+                 body += chunk // считаем весь запрос в один файл
+            })
+            /*
+                output: 
+                <Buffer 7b 0a 20 ...>
+                получем Buffer от клиента (в Postman сделали post зaпрос от клиента:
+                отправили  JSON object {
+                "name":"Baatr"
+                }
+            )
+            */
+
+            //end -это конец чтения
+            req.on('end', (chunk) =>{
+                //все что пришло парсим в строку и сохраняем
+                if(body){
+                    req.body = JSON.parse(body)
+                }
+
             //эмитим события, которые прописали в логике по названию 
             //события, то есть по шаблону события: 
             //`[${path}]:[${method}]`
@@ -40,6 +68,11 @@ module.exports = class Application{
             if(!emitted){
                 res.end()
             }
+            })
+
+            
+            
+
         })
     }
 
