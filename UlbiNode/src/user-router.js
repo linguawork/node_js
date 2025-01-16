@@ -24,7 +24,8 @@ const users = [
 ]
 
 router.get('/users', (req, res)=>{
-    //чтобы массив отразить не как строку
+    //чтобы массив отразить не как строку в браузере
+    //нужно писать Content-type:
     res.writeHead( 200, {
         'Content-type': 'application/json'
     })
