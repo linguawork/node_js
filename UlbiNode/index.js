@@ -10,14 +10,14 @@ const PORT = process.env.PORT || 5001;
 const App = require('./framework/Application')
 const userRouter = require('./src/user-router')
 //1:39:42 import of middleware
-const jsonParser = require('./framework/Application')
+const jsonParser = require('./framework/parseJson')
 
 
 const app = new App()//dont forget to instantiate after import
 
 
 //закинули миддлвер в массив
-app.use(jsonParser)
+app.use(jsonParser) // передаем как ссылку
  //перекинули маршруты в другой файл для передачи массива      
             //логика ответа
             // router.get('/users', (req, res)=>{

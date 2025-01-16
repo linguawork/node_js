@@ -24,14 +24,18 @@ const users = [
 ]
 
 router.get('/users', (req, res)=>{
-    //чтобы массив отразить не как строку в браузере
-    //нужно писать Content-type:
-    res.writeHead( 200, {
-        'Content-type': 'application/json'
-    })
+        //чтобы массив отразить не как строку в браузере
+        //нужно писать Content-type:
+        res.writeHead( 200, {
+            'Content-type': 'application/json'
+        })
 
-    //отразить на клиенте
-    res.end(JSON.stringify(users))
+        //отразить на клиенте
+        res.end(JSON.stringify(users))
+
+        //так как используем мидлвейр
+        //no need to use the upper code
+        // res.send(users)
 })
 
 /*

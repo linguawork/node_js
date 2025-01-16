@@ -7,6 +7,11 @@ module.exports = (req, res) =>{
         })
         res.end(JSON.stringify(data))
     }
+
+  
+    // const data = req.body; // If the data is sent in the request body (e.g., with a POST request)
+    // res.send(data); // Send this data as a JSON response
+    
 }
 
 //метод будет использован в class Application
