@@ -94,9 +94,13 @@ module.exports = class Application{
             Object.keys(endpoint).forEach(method =>{
                 const handler = endpoint[method] // Получаем обработчик для метода
                     this.emitter.on(this._getRouteMask(path, method), (req, res) => {
-
-                    //1:39:22 adding middleware array before handler (бежим по массиву и 
-                    // и вызываем функции, переводим данные в JSON)
+                    /*
+                        1:39:22 adding middleware array before handler (бежим по массиву и 
+                        и вызываем функции, переводим данные в JSON)
+                        The assumption is that the middlewares are modifying 
+                        the request or response in some way, such as converting 
+                        data into JSON format.
+                    */
                     this.middlewares.forEach(middleware => middleware(req,res))
                     
                     //внутри события используем handler с двумя стримами
