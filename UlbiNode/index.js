@@ -17,6 +17,10 @@ const parsedUrl = require('./framework/parseUrl')
 
 const app = new App()//dont forget to instantiate after import
 
+//npm i mongoose
+//import of Mongoose
+const mongoose = require('mongoose')
+
 
 //закинули миддлвер в массив миддлверов
 app.use(parsedUrl('http://localhost:5001'))//передаем как ссылку
@@ -69,12 +73,21 @@ app.addRouter(userRouter)
         //     console.log(`Server started on port ${PORT}`);
         // });
 
-//функция нужна чтобы запускать http server
-app.listen(PORT, 
-    () => console.log(`Server started on port ${PORT}`)
-)
 
-//run node index.js in terminal or npm start with nodemon
-
-
-
+//-----------ATTACHING DATA BASE -----------------------     
+        
+    //connected to MongoDB with Mongoose    
+    const start = async() =>{
+        try{
+            //это асинхронная функция и подключаем Базу Данных
+            await mongoose.connect()
+            //функция нужна чтобы запускать http server
+            //imported the function 
+            app.listen(PORT, 
+                () => console.log(`Server started on port ${PORT}`)
+            )
+        }catch(e){
+            console.log(e)
+        }
+    }
+    //run node index.js in terminal or npm start with nodemon
