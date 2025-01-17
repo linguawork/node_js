@@ -24,6 +24,12 @@ const users = [
 ]
 
 router.get('/users', (req, res)=>{
+
+    if(req.params.id){
+        //поиск юзера по id
+        return res.send(users.find(user=>user.id == req.params.id))
+    }
+
     //чтобы массив отразить не как строку в браузере
     //нужно писать Content-type:
         // res.writeHead( 200, {
