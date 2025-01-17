@@ -75,7 +75,7 @@ module.exports = class Application{
             //передвинули middleware непосредственно перед генерацией события,
             // a не перед хандлером, чтобы Pathname уже был доступен
             //changed from req.url req.pathname
-            console.log(req.pathname)
+            // console.log(req.pathname) // /users 
             const emitted = 
             this.emitter.emit(this._getRouteMask(req.pathname,req.method), req, res)
             
