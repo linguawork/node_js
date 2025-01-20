@@ -80,7 +80,7 @@ app.addRouter(userRouter)
     const start = async() =>{
         try{
             //это асинхронная функция и подключаем Базу Данных
-            await mongoose.connect()
+            await mongoose.connect('mongodb+srv://areggie:123@cluster0.k835l.mongodb.net/')
             //функция нужна чтобы запускать http server
             //imported the function 
             app.listen(PORT, 

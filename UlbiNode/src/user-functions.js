@@ -9,7 +9,7 @@
 */
 
 
-const User = require('./user-model')
+const User = require('./user-schema')
 // теперь User - это база данных
 
 
