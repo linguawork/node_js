@@ -11,7 +11,8 @@ const mongoose = require('mongoose');
 
 //создаем схему, то есть шаблон объекта -документа с полями
 const userSchema = new mongoose.Schema({
-    name: String
+    name: String, //name типа стринг
+    password: String // пароль типа стринг
   });
 
 /*
@@ -21,5 +22,8 @@ const userSchema = new mongoose.Schema({
     and behaviors as declared in our schema
 */
 
-//model - это создание класса с шаблоном: свойтсвами
+//model - это создание класса с шаблоном: свойствами
+//потом можно создать экземпляр класса
 
+//экспортируем модель (класс)
+module.exports = mongoose.model('User', userSchema)

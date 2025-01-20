@@ -2,75 +2,41 @@
     Возьмем функции связанные с user 
     и перенесем их в файл: user-functions.js
     Удобства ради
+
+    Теперь импортируем класс из монго дб, указав путь, 
+    и будем использовать вместо массива
+    Массив удалим
 */
 
-//отправим массив на клиент через JSON string
 
-const users = [
-    {
-        id: 1, 
-        name: 'MBS'
-    }, 
-    {
-        id: 2, 
-        name: 'Vasya'
+const User = require('./user-model')
+// теперь User - это база данных
+
+
+
+// обращение к БД это асинхронный процесс,
+// обе функции сделаем асинхр
+const findUser = async (req, res) => {
+
+    let users
+    if (req.params.id){
+        users = await User.findById(req.params.id)
+    }else{
+        //нахождение юзера в БД родной функцией Базы
+        const users = await User.find()
     }
-]
+    res.send(users)
 
-const findUser = (req, res) => {
-
-    if(req.params.id){
-        //поиск юзера по id
-        return res.send(users.find(user=>user.id == req.params.id))
-    }
-
-    //чтобы массив отразить не как строку в браузере
-    //нужно писать Content-type:
-        // res.writeHead( 200, {
-        //     'Content-type': 'application/json'
-        // })
-
-        // //отразить на клиенте
-        // res.end(JSON.stringify(users))
-
-        //так как используем мидлвейр
-        //no need to use the upper code
-        /*
-        если вы используете этот миддлвар, 
-        вы не обязаны повторно устанавливать заголовок 
-        и преобразовывать данные в JSON вручную. 
-        Вместо этого, можно сразу использовать res.send(),
-         и он будет правильно обрабатывать форматирование
-          и установку заголовков.
-        */
-        console.log(req.params)//вывели параметры 1Ж48Ж27: { id: '1', page: '5' }
-        res.send(users)
 }
 
-/*
-    Was:
-    [{"id":1,"name":"MBS"},{"id":2,"name":"Vasya"}]
-
-    Changed:
-    [
-    {
-        "id": 1,
-        "name": "MBS"
-    },
-    {
-        "id": 2,
-        "name": "Vasya"
-    }
-    ]
-*/
 
 
-const createUser = (req, res) => {
-    console.log(req.body)
 
-    const user = req.body
+const createUser = async (req, res) => {
 
-    users.push(user)
+    //запрос от юзера на создание
+    const user = await User.create(req.body)
+    // отправка юзера клиенту в ответе
     res.send(user)
 }
 
@@ -78,3 +44,6 @@ module.exports = {
     findUser,
     createUser
 }
+
+
+

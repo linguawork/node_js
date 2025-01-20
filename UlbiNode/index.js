@@ -90,4 +90,8 @@ app.addRouter(userRouter)
             console.log(e)
         }
     }
+
+
+    start()
+
     //run node index.js in terminal or npm start with nodemon
